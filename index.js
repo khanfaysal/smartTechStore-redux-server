@@ -40,10 +40,9 @@ const run = async () => {
 
     app.get('/product/:id', async (req, res) => {
       const id = req.params.id;
-      console.log(id, 'id')
 
       const result = await productCollection.findOne({ _id: ObjectId(id) });
-      console.log(result);
+   
       res.send(result);
     });
 
@@ -51,7 +50,7 @@ const run = async () => {
       const id = req.params.id;
 
       const result = await productCollection.deleteOne({ _id: ObjectId(id) });
-      console.log(result);
+   
       res.send(result);
     });
 
@@ -59,15 +58,12 @@ const run = async () => {
       const productId = req.params.id;
       const comment = req.body.comment;
 
-      console.log(productId, 'productId from backend');
-      console.log(comment, 'comment from backend');
-
       const result = await productCollection.updateOne(
         { _id: ObjectId(productId) },
         { $push: { comments: comment } }
       );
 
-      console.log(result);
+   
 
       if (result.modifiedCount !== 1) {
         console.error('Product not found or comment not added');
